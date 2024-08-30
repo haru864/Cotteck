@@ -1,1 +1,4 @@
 helidon/target/
+helidon/config/
+
+mysql/data/
