@@ -17,7 +17,7 @@
     <name>${project.artifactId}</name>
 
     <properties>
-        <mainClass>io.helidon.examples.Main</mainClass>
+        <mainClass>io.helidon.app.Main</mainClass>
     </properties>
 
     <dependencies>
@@ -56,15 +56,15 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <configuration>
-                    <url>jdbc:mysql://localhost:3306/chatmerge?enabledTLSProtocols=TLSv1.2,TLSv1.3</url>
+                    <url>jdbc:mysql://mysql:3306/chatmerge?enabledTLSProtocols=TLSv1.2,TLSv1.3</url>
                     <user>${flyway.user}</user>
                     <password>${flyway.password}</password>
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.44</version>
+                        <groupId>com.mysql</groupId>
+                        <artifactId>mysql-connector-j</artifactId>
+                        <version>8.0.33</version>
                     </dependency>
                 </dependencies>
             </plugin>

@@ -2,3 +2,5 @@ helidon/target/
 helidon/config/
 
 mysql/data/
+
+mysql-variables.env

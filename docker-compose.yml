@@ -3,38 +3,20 @@ version: '3.8'
 services:
   helidon:
     build:
-      context: helidon/
-      dockerfile: ./Dockerfile
+      context: .
+      dockerfile: ./helidon/Dockerfile
     ports:
-      - "10080:10080"
-    # command: >
-    #   sh -c " 
-    #     if [ ! -d vendor ]; then
-    #       composer install;
-    #     fi
-    #   php-fpm "
-    # depends_on:
-    #   - mysql
-    #   - redis
-    # volumes:
-    #   - public_data:/var/www/sns/php/public
+      - "48080:10080"
+    depends_on:
+      - mysql
 
-    # nginx:
-    #   build:
-    #     context: .
-    #     dockerfile: ./nginx/Dockerfile
-    #   ports:
-    #     - "10080:80"
-    #   volumes:
-    #     - public_data:/var/www/sns/php/public
-    #   depends_on:
-    #     - nextjs
-    #     - php
-    #     - nodejs
-
-    # volumes:
-    #   public_data:
-    #     driver_opts:
-    #       type: none
-    #       device: ${PWD}/php/public
-    #       o: bind
+  mysql:
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
+    volumes:
+      - ./mysql/data/:/var/lib/mysql
+    env_file:
+      - ./mysql-variables.env
+    ports:
+      - "43306:3306"
