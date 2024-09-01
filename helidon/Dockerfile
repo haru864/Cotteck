@@ -1,3 +1,4 @@
+# Build stage
 FROM container-registry.oracle.com/java/openjdk:21 as build 
 
 # Install maven
@@ -19,17 +20,12 @@ RUN mvn package -DskipTests
 RUN echo "done!"
 
 
-
+# Deploy stage
 FROM container-registry.oracle.com/java/openjdk:21
 
-# Install maven
-WORKDIR /usr/share
-RUN set -x && \
-    curl -O https://archive.apache.org/dist/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz && \
-    tar -xvf apache-maven-*-bin.tar.gz  && \
-    rm apache-maven-*-bin.tar.gz && \
-    mv apache-maven-* maven && \
-    ln -s /usr/share/maven/bin/mvn /bin/
+# Copy Maven from build stage
+COPY --from=build /usr/share/maven /usr/share/maven
+RUN ln -s /usr/share/maven/bin/mvn /bin/
 
 WORKDIR /helidon
 
